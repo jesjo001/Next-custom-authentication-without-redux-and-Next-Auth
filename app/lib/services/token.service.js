@@ -1,5 +1,4 @@
 import { toast } from 'react-toastify';
-import AuthService from './auth.service';
 import Cookie from "js-cookie";
 import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
@@ -13,7 +12,7 @@ const getLocalRefreshToken = () => {
         return false;
     }
   };
-  
+
   const getLocalAccessToken = () => {
     try {
         const user = Cookie.get("accessToken")

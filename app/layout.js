@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify'
 import './globals.css'
 import GlobalThemeWrapper from './lib/GlobalThemeWrapper'
 import StyledComponentsRegistry from './lib/register'
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
         <StyledComponentsRegistry>
           <GlobalThemeWrapper>
           {children}
+          <ToastContainer />
           </GlobalThemeWrapper>
         </StyledComponentsRegistry>
       </body>

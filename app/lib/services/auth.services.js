@@ -3,7 +3,7 @@ import TokenService from "./token.service";
 import { toast } from 'react-toastify';
 import jwtDecode from "jwt-decode";
 import Cookies from "js-cookie";
-import { responseErrorHandler } from "../utils/hooks/errorHandler";
+import { responseErrorHandler } from "@/utils/errorHandler";
 
 
 const register = async (username, firstname, lastname, phoneNum, sex, email, password) => {
@@ -73,11 +73,8 @@ const getCurrentUser = () => {
             return decoded;
         
     } catch (error) {
-        console.log("error while decoding >> ", error)
         return false;
     }
-    
-    return false;
 };
 
 const AuthService = {
