@@ -2,7 +2,7 @@ import axios from "axios";
 import TokenService from "./token.service";
 
 const dev = process.env.NODE_ENV !== 'production'
-const SERVER_ROUTE = dev ?  process.env.NEXT_PUBLIC_LOCALSERVER_URL : process.env.NEXT_PUBLIC_DEVSERVER_URL
+const SERVER_ROUTE = dev ?  process.env.NEXT_PUBLIC_BACKEND_DEV : process.env.NEXT_PUBLIC_BACKEND_PROD
 
 const instance = axios.create({
   baseURL: `${SERVER_ROUTE}`,

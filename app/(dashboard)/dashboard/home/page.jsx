@@ -1,5 +1,6 @@
 "use client"
-import React from "react";
+import AuthService from "@/app/lib/services/auth.services";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -15,7 +16,7 @@ export default function Home() {
 
   return (
     <Container>
-        dashboard
+        <p>dashboard</p>
         <button>get Users</button>
     </Container>
   )
