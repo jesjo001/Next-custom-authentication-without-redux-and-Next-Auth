@@ -41,7 +41,7 @@ const getLocalRefreshToken = () => {
 
             const refreshTokenCokieOptions = {
               httpOnly: false,
-              expires: accessTokenExpiry,
+              expires: refreshTokenExpiry,
               path: "/",
               sameSite: "strict",
               secure: process.env.NODE_ENV === "production",
