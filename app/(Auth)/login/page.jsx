@@ -2,11 +2,11 @@
 import React, { useRef } from 'react'
 import { styled } from 'styled-components'
 import { useRouter } from 'next/navigation'
-import AuthService from '@/app/lib/services/auth.services'
 import { toast } from 'react-toastify'
+import AuthService from '@/app/lib/services/auth.service'
 
 function Login() {
-    const {push} = useRouter()
+    const { push } = useRouter()
 
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -14,43 +14,38 @@ function Login() {
     const submitForm = async(e) => {
         e.preventDefault();
 
-        let email = emailRef?.current?.value
-        let password = passwordRef?.current?.value
+        const email = emailRef?.current?.value
+        const password = passwordRef?.current?.value
 
         try {
     
             if(email === '') {
-                notify('Email is required, Kindly fill all fields');
+                toast.error('Email is required, Kindly fill all fields');
                 return false;
             }
     
             // "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
             if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-                notify('Email is not valid');
+                toast.error('Email is not valid');
                 return false;
             }
     
             if( password === '') {
-                notify('Password is required, Kindly fill all fields');
+                toast.error('Password is required, Kindly fill all fields');
                 return false;
             }
     
             if( password.length < 7 ) {
-                notify('Password must not be less than 7 characters');
+                toast.error('Password must not be less than 7 characters');
                 return false;
             }
-    
-           const response = await AuthService.login(email, password)
-    
-           if(!response){ 
-                return false;
-            }
-           
-            toast.success('Logged in Successfully');
-            email = ""
-            password = ""
-            // setLoading(false)
-            push('/dashboard/home');
+
+            const response = await AuthService.login(email, password)
+
+            if(!response) return false
+            
+            toast.success('Login successful!!!')
+            push('/dashboard/home')
             
     
         } catch (err) {

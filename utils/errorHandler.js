@@ -23,7 +23,9 @@ export const responseErrorHandler = (error) => {
       if(resMessage === "Request failed with status code 500"){
         resMessage = "Oops Something went wrong Please try again later!!!";
       }
-      if(resMessage === "invalid signature") resMessage = "Oops Seems the link as expired";
+
+      if (errorMessage === 'Network Error') resMessage = "Oops, it seems you do not have internet access!!"
+      if(resMessage === "invalid signature") resMessage = "Oops Seems the link has expired";
       
 
     return resMessage
