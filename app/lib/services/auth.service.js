@@ -28,18 +28,14 @@ const login = (email, password) => {
       })
       .then((response) => {
         if (response?.data?.accessToken) {
-         TokenService.setUser(response?.data);
+         TokenService.updateLocalAccessToken(response?.data);
         }
   
         return response?.data;
       }).catch((error) => {
         let errorMessage = responseErrorHandler(error)
-        if (errorMessage === 'Network Error') {
-          toast.error(`Oops, it seems you do not have internet access. '\n' ${errorMessage}`)
-        } else {
-          toast.error(errorMessage)
-        }
-        // console.log("error at auth service >>", error)
+        toast.error(errorMessage)
+        return false;
       });
   };
 
@@ -51,6 +47,7 @@ const getCurrentUser = () => {
     try {
             const accessToken = Cookies.get("accessToken")
             const decoded = jwtDecode(accessToken)
+            console.log("decoded", decoded)
             return decoded;
         
     } catch (error) {

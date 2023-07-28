@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <>
       <RequireAuth>
-          {children}
+        {children}
       </RequireAuth>
     </>
   )

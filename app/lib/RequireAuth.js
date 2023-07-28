@@ -1,43 +1,32 @@
-// import './globals.css'
 "use client";
-
-import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import Loading from './Loading';
-import AuthService from './services/auth.services';
+import React, { useEffect, useState } from "react";
+import TokenService from "./services/token.service";
+import { usePathname, useRouter } from "next/navigation";
+import Loading from "./Loading";
+import AuthService from "./services/auth.service";
 
 const authenticatedRoutes = [
-  '/dashboard/home',
-]
-
-export default function RequireAuth({ children }) {
+    "/dashboard/home",
+];
+function RequireAuth({ children }) {
+  const currentUser = AuthService.getCurrentUser()
   const [user, setUser] = useState({});
 
-  const currentUser = AuthService.getCurrentUser();
+  const pathname = usePathname();
+  const { push } = useRouter();
 
-    const pathname = usePathname();
-    const router = useRouter()
-    console.log("current user: " , currentUser)
+  console.log(currentUser, pathname, currentUser)
+  useEffect(() => {
+    if (!currentUser && authenticatedRoutes.includes(pathname)) {
+      push("/login");
+    }
 
+    if (currentUser) setUser(currentUser);
+  }, []);
 
-    useEffect(() => {
-        if(!currentUser){
-            if(authenticatedRoutes.includes(pathname)){
-                router.push('/login')
-            }
-        }
+  if (!user.email) return <Loading />;
 
-        if(currentUser) {
-            setUser(currentUser)
-        }
-    },[])
-
-  if(!user) return <Loading />
-
-    return (
-    <>
-        {children}
-    </>
-    );
+  return <>{children}</>;
 }
+
+export default RequireAuth;
